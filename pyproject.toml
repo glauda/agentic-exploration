@@ -1,0 +1,7 @@
+[project]
+name = "agentic-exploration"
+version = "0.1.0"
+description = "Exploration on agentic frameworks"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = []
