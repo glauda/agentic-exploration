@@ -5,6 +5,11 @@
         "dockerfile": "Dockerfile" 
     },
 
+	// Environment variables
+	"containerEnv": {
+		"PYTHONPATH": "${containerWorkspaceFolder}"
+	},
+
 	// Features to add to the dev container. More info: https://containers.dev/features.
 	"features": {
 		"ghcr.io/devcontainers/features/github-cli:1": {"version": "latest"}
@@ -14,7 +19,16 @@
 	"customizations": {
 		// Configure properties specific to VS Code.
 		"vscode": {
-			"settings": {},
+			"settings": {
+				"editor.formatOnSave": true,
+				"[python]": {
+					"editor.defaultFormatter": "charliermarsh.ruff"
+				},
+				"ruff.enable": true,
+				"ruff.lintOnSave": true,
+				"ruff.organizeImports": true,
+				"ruff.fixAll": true
+			},
 			"extensions": [
 				"ms-python.python",
 				"charliermarsh.ruff"

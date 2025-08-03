@@ -13,4 +13,7 @@ uv sync
 git config --global user.email "florent-glauda@orange.fr"
 git config --global user.name "Florent Glauda"
 
+# Setup alias commands
+echo "alias ll='ls -alF --color=auto'" >> ~/.bashrc
+
 echo "Devcontainer setup completed successfully!"
