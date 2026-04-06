@@ -5,7 +5,9 @@
         "dockerfile": "Dockerfile" 
     },
 
-	"forwardAgent": true,
+	"mounts": [
+		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind"
+	],
 
 	// Environment variables
 	"containerEnv": {
