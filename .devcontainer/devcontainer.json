@@ -5,6 +5,8 @@
         "dockerfile": "Dockerfile" 
     },
 
+	"forwardAgent": true,
+
 	// Environment variables
 	"containerEnv": {
 		"PYTHONPATH": "${containerWorkspaceFolder}"
