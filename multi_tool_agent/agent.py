@@ -1,6 +1,7 @@
-import datetime
-from zoneinfo import ZoneInfo
 from google.adk.agents import Agent
+from google.adk.tools.mcp_tool import MCPToolset
+from google.adk.tools.mcp_tool.mcp_session_manager import StdioConnectionParams
+from mcp import StdioServerParameters
 
 
 def get_weather(city: str) -> dict:
@@ -27,29 +28,14 @@ def get_weather(city: str) -> dict:
         }
 
 
-def get_current_time(city: str) -> dict:
-    """Returns the current time in a specified city.
-
-    Args:
-        city (str): The name of the city for which to retrieve the current time.
-
-    Returns:
-        dict: status and result or error msg.
-    """
-
-    if city.lower() == "new york":
-        tz_identifier = "America/New_York"
-    else:
-        return {
-            "status": "error",
-            "error_message": (f"Sorry, I don't have timezone information for {city}."),
-        }
-
-    tz = ZoneInfo(tz_identifier)
-    now = datetime.datetime.now(tz)
-    report = f"The current time in {city} is {now.strftime('%Y-%m-%d %H:%M:%S %Z%z')}"
-    return {"status": "success", "report": report}
-
+mcp_toolset = MCPToolset(
+    connection_params=StdioConnectionParams(
+        server_params=StdioServerParameters(
+            command="python",
+            args=["-m", "mcp_server.server"],
+        ),
+    ),
+)
 
 root_agent = Agent(
     name="weather_time_agent",
@@ -58,5 +44,5 @@ root_agent = Agent(
     instruction=(
         "You are a helpful agent who can answer user questions about the time and weather in a city."
     ),
-    tools=[get_weather, get_current_time],
+    tools=[get_weather, mcp_toolset],
 )
