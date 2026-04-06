@@ -1,28 +1,11 @@
 {
 	"name": "Agentic Exploration",
-	"build": { 
-        "context": ".",
-        "dockerfile": "Dockerfile" 
-    },
-
-	"mounts": [
-		"source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind"
+	"dockerComposeFile": [
+		"docker-compose.yml"
 	],
-
-	// Environment variables
-	"containerEnv": {
-		"PYTHONPATH": "${containerWorkspaceFolder}"
-	},
-
-	// Features to add to the dev container. More info: https://containers.dev/features.
-	"features": {
-		"ghcr.io/devcontainers/features/github-cli:1": {"version": "latest"},
-		"ghcr.io/devcontainer-community/devcontainer-features/opencode.ai:1": {"version": "latest"}
-	},
-
-	// Configure tool-specific properties.
+	"service": "devcontainer",
+	"workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
 	"customizations": {
-		// Configure properties specific to VS Code.
 		"vscode": {
 			"settings": {
 				"editor.formatOnSave": true,
@@ -40,11 +23,14 @@
 			]
 		}
 	},
-	
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [9000],
-
-	// Use 'postCreateCommand' to run commands after the container is created.
+	"features": {
+		"ghcr.io/devcontainers/features/github-cli:1": {
+			"version": "latest"
+		},
+		"ghcr.io/devcontainer-community/devcontainer-features/opencode.ai:1": {
+			"version": "latest"
+		}
+	},
 	"postCreateCommand": "bash ./.devcontainer/post_install.sh"
 
 	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
